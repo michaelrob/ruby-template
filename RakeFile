@@ -1,0 +1,28 @@
+require 'pry'
+
+task :default => [:run]
+
+desc "Game of Life"
+task "run" do
+  $LOAD_PATH.unshift(File.dirname(__FILE__), "lib")
+  require 'board'
+
+  Thread.new do
+    while line = STDIN.gets
+      break if line.chomp == '/q'
+    end
+    exit
+  end
+
+  board = Board.new()
+  board.info()
+  board.display()
+
+  loop do
+    board.tick!
+    board.info()
+    board.display()
+
+    sleep 0.5
+  end
+end
