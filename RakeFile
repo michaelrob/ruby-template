@@ -2,27 +2,11 @@ require 'pry'
 
 task :default => [:run]
 
-desc "Game of Life"
+desc "Ruby Template"
 task "run" do
   $LOAD_PATH.unshift(File.dirname(__FILE__), "lib")
-  require 'board'
+  require 'example'
 
-  Thread.new do
-    while line = STDIN.gets
-      break if line.chomp == '/q'
-    end
-    exit
-  end
-
-  board = Board.new()
-  board.info()
-  board.display()
-
-  loop do
-    board.tick!
-    board.info()
-    board.display()
-
-    sleep 0.5
-  end
+  example = Example.new("Example Ruby project.")
+  example.info
 end
